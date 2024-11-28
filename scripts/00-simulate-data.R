@@ -6,6 +6,7 @@
 
 #### Workspace setup ####
 library(tidyverse)
+library(arrow)
 set.seed(123)  # Set seed for reproducibility
 
 #### Simulate data ####
@@ -37,6 +38,6 @@ simulated_data <- tibble(
   )
 )
 
-# Display the first few rows of the simulated data
-head(simulated_data)
+write_parquet(simulated_data, "data/raw-data/simulated_ansur_female_data.parquet")
+write_csv(simulated_data, "data/raw-data/simulated_ansur_female_data.csv")
 
