@@ -1,9 +1,9 @@
 ---
 title: "Exploring the Determinants of Body Weight: A Bayesian Analysis of Anthropometric and Demographic Factors Among Female U.S. Army Personnel"
-subtitle: "Identifying Key Predictors to Enhance Health Monitoring and Operational Readiness"
+subtitle: "A Bayesian Approach to Identifying Anthropometric and Demographic Predictors of Body Weight in Female U.S. Army Personnel for Improved Health Monitoring and Operational Readiness"
 author: 
-  - aa
-thanks: "Code and data are available at: "
+  - Huayan Yu
+thanks: "Code and data are available at: https://github.com/huayan1998/Exploring_the_Determinants_of_Body_Weight"
 date: today
 date-format: long
 abstract: "This study examines the relationship between body weight and key anthropometric and demographic factors among female U.S. Army personnel using a Bayesian regression model. The analysis found that waist circumference and thigh circumference are strong predictors of body weight, while other variables, such as height, age, and military component, show weaker or uncertain associations. These findings highlight the importance of body composition measurements in understanding weight variation and support their use in designing health monitoring programs and military equipment. By identifying key predictors, this research contributes to improving fitness assessments and operational readiness in physically demanding occupations."
@@ -52,7 +52,7 @@ ansur_female <- read_csv(file_path)
 
 Body weight is a crucial determinant of physical performance, health, and operational readiness, particularly in occupations like military service. In the U.S. Army, maintaining optimal weight is essential for meeting fitness standards, minimizing injury risks, and ensuring operational success. However, limited research has explored how anthropometric and demographic factors collectively influence body weight among female soldiers.
 
-This study addresses this gap using the 2012 U.S. Army Anthropometric Survey (ANSUR II) Female Dataset [@dacowits2012; @openlab2024]. The dataset contains anthropometric and demographic measurements for 1,986 female U.S. Army personnel, collected by the Natick Soldier Research, Development, and Engineering Center (NSRDEC) using standardized protocols. Variables such as stature, waist circumference, and chest circumference were measured with precise instruments, while demographic data like age and military component were cross-verified with administrative records to ensure accuracy [@dacowits2012; @phhealth2024].
+This study addresses this gap using the 2012 U.S. Army Anthropometric Survey (ANSUR II) Female Dataset. The dataset contains anthropometric and demographic measurements for 1,986 female U.S. Army personnel, collected by the Natick Soldier Research, Development, and Engineering Center (NSRDEC) using standardized protocols. Variables such as stature, waist circumference, and chest circumference were measured with precise instruments, while demographic data like age and military component were cross-verified with administrative records to ensure accuracy.
 
 By examining relationships between body weight and variables like height, waist circumference, age, and military component, this study aims to identify key predictors and develop a robust predictive model. The findings offer insights into the determinants of body weight and practical applications for health monitoring, fitness interventions, and military equipment design.
 
@@ -63,20 +63,20 @@ The data for this study was systematically downloaded, cleaned, analyzed, modele
 - **`tidyverse`** [@tidyverse]: To streamline the process of data manipulation and visualization.
 - **`ggplot2`** [@ggplot2]: Used for its powerful and flexible capabilities in creating various types of visualizations tailored to the needs of this study.
 - **`dplyr`** [@dplyr]: Employed for its intuitive functions to transform and summarize complex datasets effectively.
-- **`broom`** [@broom]: Used to tidy up model outputs and seamlessly integrate them into the analysis workflow.
 - **`rstanarm`** [@rstanarm]: Facilitated the implementation of Bayesian models, providing a straightforward way to fit regression models using Stan.
 - **`bayesplot`** [@bayesplot]: Utilized for creating graphical posterior predictive checks and diagnostic plots to assess model fit.
 - **`arrow`** [@arrow]: Used for efficiently reading and writing large datasets, enhancing data handling capabilities.
 - **`tinytable`** [@tinytable]: Used to create compact and well-organized summary tables for presenting data and model outputs effectively.
 - **`modelsummary`** [@modelsummary]: Used for creating professional-quality regression tables and visualizations to summarize model results clearly.
 - **`knitr`** [@knitr]: Employed to dynamically generate reproducible reports that integrate R code with its outputs, allowing for seamless inclusion of plots and analysis results in the final document.
+- **`janitor`** [@janitor]: Used for its efficient data cleaning functions, simplifying the process of preprocessing dirty data into a clean, analysis-ready format.
 - **_Telling Stories with Data_** [@tellingstories]: This book was consulted for its statistical information.
 
 
 
 ```{r}
 #| label: tbl-head-data
-#| tbl-cap: Table of first 6 rows of the cleaned dataset
+#| tbl-cap: First 6 rows of the cleaned dataset
 #| echo: false
 #| warning: false
 #| message: false
@@ -156,7 +156,7 @@ Thigh circumference provides valuable insights into lower body muscle and fat di
 
 ```{r}
 #| label: fig-waist-thigh-violin-plots
-#| fig-cap: "Figure: Violin plots showing the distribution of waist and thigh circumferences, with individual data points overlaid to provide a detailed visualization of the data spread."
+#| fig-cap: "Violin plots showing the distribution of waist and thigh circumferences, with individual data points overlaid to provide a detailed visualization of the data spread."
 #| echo: false
 #| warning: false
 #| message: false
@@ -178,9 +178,8 @@ ggplot(data_long, aes(x = measurement, y = value, fill = measurement)) +
   geom_jitter(width = 0.2, alpha = 0.5, color = "black") +  # Overlay actual data points
   theme_minimal() +
   labs(
-    title = "Distribution of Waist and Thigh Circumference",
     x = "Measurement",
-    y = "Circumference (in mm)",
+    y = "Circumference (in cm)",
     fill = "Measurement"
   ) +
   theme(legend.position = "none")
@@ -196,7 +195,7 @@ Age is a crucial demographic variable in this study, as it encapsulates biologic
 
 ```{r}
 #| label: tbl-age-distribution
-#| tbl-cap: The table showing distribution of age among female U.S. Army personnel, with most individuals between 22 and 34 years old.
+#| tbl-cap: Distribution of age among female U.S. Army personnel, with most individuals between 22 and 34 years old.
 #| echo: false
 #| warning: false
 #| message: false
@@ -213,10 +212,8 @@ age_summary <- ansur_female %>%
     SD = sd(age, na.rm = TRUE)
   )
 
-cap <- "Summary of Age Distribution"
-not <- "The table showing distribution of age among female U.S. Army personnel, with most individuals between 22 and 34 years old."
 # Convert summary to a tinytable
-age_table <- tt(age_summary, caption = cap, notes = not)
+age_table <- tt(age_summary)
 
 # Display the table
 age_table
@@ -232,7 +229,7 @@ The component variable refers to the military branch or service type (e.g., Acti
 
 ```{r}
 #| label: tbl-component-distribution
-#| tbl-cap: The table showing the distribution of military components (Regular Army, Reserves, National Guard) among female U.S. Army personnel.
+#| tbl-cap: Distribution of military components among female U.S. Army personnel.
 #| echo: false
 #| warning: false
 #| message: false
@@ -243,9 +240,7 @@ component_summary <- ansur_female %>%
   mutate(Percentage = round(n / sum(n) * 100, 2))
 
 # Convert to tinytable
-cap <- "Summary of components Distribution"
-not <- 'Distribution of military components are categorized as Regular Army, Reserves, and National Guard.'
-component_table <- tt(component_summary, caption = cap, notes = not)
+component_table <- tt(component_summary)
 
 # Display the table
 component_table
@@ -302,11 +297,17 @@ Where:
 
 The Bayesian regression model utilizes default priors provided by the rstanarm package, ensuring robust and reliable inference. These priors are weakly informative, balancing regularization with the flexibility to adapt to the data:
 
--   Intercept Priors: For the model’s intercept $\beta_0$, a normal prior distribution is used with a mean of 0 and a standard deviation of 1. This prior helps stabilize the intercept estimate without imposing overly strong assumptions about its central value.
+-   Intercept Priors: For the model’s intercept $\beta_0$, a normal prior distribution is used with a mean of 0 and a standard deviation of 1. This choice reflects the assumption that the baseline body weight (when all predictors are zero) is centered near the observed scale of the outcome variable but avoids imposing overly strong constraints. The standard deviation of 1 allows for reasonable variation, ensuring the prior does not dominate the posterior estimates. Given the scale of the predictors (e.g., height, waist circumference), this weakly informative prior stabilizes the intercept estimate without introducing bias.
 
 -   Coefficient Priors: Coefficients for the predictor variables $\beta_1, \beta_2, \beta_3, \beta_4, \beta_5$ are assigned normal prior distributions with a mean of 0 and a standard deviation of 1. These priors limit the possibility of overly large coefficient estimates unless strongly supported by the data, introducing a level of regularization to prevent overfitting.
 
 The weakly informative priors are designed to enhance the model’s robustness, ensuring credible parameter estimates and reliable uncertainty quantification. The use of Bayesian priors provides an added layer of rigor, particularly when estimating complex relationships between predictors and body weight. The rstanarm package facilitates the implementation of these priors, making Bayesian inference accessible and effective for this analysis.
+
+## Justification for the Priors and Model Choice
+
+The choice of weakly informative priors reflects the exploratory nature of this study, where the goal is to identify significant predictors of body weight without imposing strong assumptions on the parameter estimates. Normal priors centered around zero with a moderate variance ensure that the model is flexible enough to incorporate data-driven insights while avoiding overfitting. This is particularly important given the diversity of predictors, which include anthropometric variables (e.g., waist and thigh circumference) and categorical demographic factors (e.g., military component). The priors help balance the varying scales of these predictors, ensuring interpretability and stability in the posterior estimates.
+
+The Bayesian regression framework was chosen for its ability to provide probabilistic estimates, which are particularly useful in quantifying uncertainty and generating credible intervals for the coefficients. This approach is well-suited to the study’s context, where understanding the relative influence of anthropometric and demographic predictors on body weight requires a robust and interpretable model. The rstanarm package was selected for its efficient handling of Bayesian inference and its built-in diagnostics, allowing for rigorous validation of the model. The use of a Gaussian likelihood function aligns with the continuous nature of the outcome variable (body weight), and the model’s structure avoids unnecessary complexity while accurately capturing key relationships in the data.
 
 # Results {#sec-result}
 
@@ -327,7 +328,7 @@ ansur_bayesian_model <-
 
 ```{r}
 #| label: tbl-bayesian-model-summary
-#| tbl-cap: Bayesian Regression Model Results.
+#| tbl-cap: Bayesian Regression Model Results
 #| echo: false
 #| warning: false
 #| message: false
@@ -407,7 +408,13 @@ Looking forward, integrating more comprehensive datasets and applying advanced a
 
 # Appendix {.unnumbered}
 
-# Model details {#sec-model-details}
+# Data Cleaning
+
+The raw ANSUR II Female Dataset was systematically cleaned and prepared for analysis to ensure consistency, accuracy, and relevance of the variables. First, the raw dataset was loaded using the read_csv function and processed with the janitor::clean_names() function to standardize column names, making them easier to interpret and work with. Key variables relevant to the study—such as weight (weightlbs), height (heightin), waist circumference, thigh circumference, age, and military component—were selected using the select() function to focus the analysis on predictors of interest.
+
+Rows with missing values were removed using drop_na() to maintain data integrity and ensure a complete dataset for modeling. Several transformations were applied: character columns like the military component were converted to factors, and the age column was explicitly coerced to numeric to prevent data type inconsistencies. Additionally, waist circumference and thigh circumference values were divided by 10 to standardize the unit of measurement (converting millimeters to centimeters), and columns were renamed for clarity. Finally, the cleaned dataset was saved in both CSV and Parquet formats for accessibility and compatibility with various analytical tools. These steps ensured a clean, well-structured dataset, ready for reliable and reproducible analysis.
+
+# Model Details {#sec-model-details}
 
 ## Posterior Predictive Check
 
@@ -475,6 +482,65 @@ plot(ansur_bayesian_model, "trace")
 plot(ansur_bayesian_model, "rhat")
 
 ```
+
+# Ideal Data Sampling Methodology
+
+In an ideal scenario, the data for this study would be collected using a stratified random sampling method to ensure the sample accurately represents the diverse population of female U.S. Army personnel. This approach would involve dividing the population into distinct strata based on key demographic and occupational characteristics, such as military component (Active Duty, Reserves, National Guard), age groups (e.g., 18–25, 26–35, 36+ years), and ethnic backgrounds. Each stratum would then be sampled independently, with participants randomly selected within each group in proportion to their representation in the overall population. Stratified random sampling is particularly effective for heterogeneous populations, as it minimizes sampling bias and ensures that smaller subgroups, such as Reserve personnel or older age groups, are adequately represented.
+
+To implement this method, a comprehensive roster of all female U.S. Army personnel would be required. This roster would include essential demographic and occupational information to accurately classify individuals into strata. Once stratification is complete, participants would be selected using randomization techniques, such as computer-generated random numbers, to eliminate selection bias. For instance, if 50% of the total population comprises Active Duty personnel, 50% of the sampled participants would also be drawn from this stratum. Similarly, if 20% of personnel fall within the 18–25 age group, this age group would constitute 20% of the sample. This proportional allocation ensures that the sample mirrors the characteristics of the entire population.
+
+To enhance the validity and reliability of the data, standardized measurement protocols would be employed during data collection. Anthropometric measurements, such as weight, height, waist circumference, and thigh circumference, would be conducted using calibrated instruments and performed by trained professionals to reduce variability. Demographic data, such as age, ethnicity, and military component, would be collected through self-reports and cross-verified with official administrative records to ensure accuracy and consistency.
+
+# Ideal Survey Questionnaire
+
+## Section 1: Demographic Information
+1. **What is your age?** (Open-ended)  
+   Example answer: 25  
+
+2. **Which military component are you currently serving in?** (Multiple-choice)  
+   - Regular Army  
+   - Army Reserve  
+   - National Guard  
+
+3. **What is your ethnic background?** (Multiple-choice)  
+   - White  
+   - Black or African American  
+   - Asian  
+   - Hispanic or Latino  
+   - Native American or Alaska Native  
+   - Native Hawaiian or Pacific Islander  
+   - Other (please specify): ___________  
+
+## Section 2: Anthropometric Measurements
+*(Instructions: Please provide accurate measurements. Measurements should be taken by a trained professional or using calibrated equipment.)*
+
+4. **What is your body weight in pounds?** (Open-ended)  
+   Example answer: 142  
+
+5. **What is your height in inches?** (Open-ended)  
+   Example answer: 64  
+
+6. **What is your waist circumference in centimeters?** (Open-ended)  
+   Example answer: 85.0  
+
+7. **What is your thigh circumference in centimeters?** (Open-ended)  
+   Example answer: 62.2  
+
+## Section 3: Additional Information
+8. **Do you have any medical conditions that may affect body weight (e.g., metabolic disorders)?** (Multiple-choice)  
+   - Yes (please specify): ___________  
+   - No  
+
+9. **How frequently do you engage in physical training as part of your military duties?** (Multiple-choice)  
+   - Daily  
+   - 3-5 times a week  
+   - 1-2 times a week  
+   - Rarely  
+
+10. **Do you follow any specific dietary practices or restrictions?** (Multiple-choice)  
+    - Yes (please specify): ___________  
+    - No  
+
 
 \newpage
 
