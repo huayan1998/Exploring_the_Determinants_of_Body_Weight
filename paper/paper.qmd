@@ -53,7 +53,7 @@ Given its rarity and specificity, the ANSUR II dataset is an invaluable resource
 
 ## Data Preprocessing and Tools
 
-The `tidyverse` package [@tidyverse] was used to streamline the entire process of data manipulation, transformation, and visualization, ensuring consistency, efficiency, and flexibility throughout the analysis. Its comprehensive suite of tools enabled the creation of tailored and informative visual outputs, as well as the effective transformation and summarization of complex datasets.
+All the data analysis was done through R (R Core Team 2023) with the aid of various packages in the R programming language. The `tidyverse` package [@tidyverse] was used to streamline the entire process of data manipulation, transformation, and visualization, ensuring consistency, efficiency, and flexibility throughout the analysis. Its comprehensive suite of tools enabled the creation of tailored and informative visual outputs, as well as the effective transformation and summarization of complex datasets.
 
 The implementation of Bayesian models was facilitated by `rstanarm` [@rstanarm], which provided a straightforward way to fit regression models using Stan. Diagnostic and posterior predictive checks were conducted using `bayesplot` [@bayesplot], allowing for thorough assessment of model fit through graphical outputs. The `arrow` package [@arrow] enhanced data handling by enabling efficient reading and writing of large datasets.
 
