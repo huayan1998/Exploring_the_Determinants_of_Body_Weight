@@ -16,8 +16,6 @@ set.seed(123) # Set seed for reproducibility
 n <- 1000
 
 # Simulate data
-set.seed(123) # Ensure reproducibility
-
 simulated_data <- tibble(
   # Weight and Waist Circumference with a correlation
   weight = rnorm(n, mean = 70, sd = 15), # Weight in kg
