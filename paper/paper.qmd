@@ -261,7 +261,7 @@ Where:
 
 -   $\sigma^2$: The residual variance, capturing the variability in body weight not explained by the predictors.
 
-## Reflecting Data Features in Model Design
+## Predictors Choice
 
 The model's design reflects the characteristics of the dataset to ensure alignment with the nature of the variables and optimize the analysis. Anthropometric variables such as height, waist circumference, and thigh circumference were included as continuous predictors to preserve their granularity and maximize sensitivity to subtle variations in body weight. Age was also treated as a continuous variable, rather than being grouped into categories, to avoid arbitrary cutoffs and retain variability, enabling a more precise assessment of its relationship with body weight. The military component variable was modeled categorically, with each group (Regular Army, Reserves, and National Guard) treated as a distinct level to account for structural differences in activity levels and lifestyle among these groups. Additionally, waist and thigh circumferences were rescaled to centimeters for consistency and to reflect standard real-world measurement practices. These decisions ensure that the model leverages the dataset's structure effectively while maintaining interpretability and relevance to the research context.
 
@@ -275,15 +275,17 @@ The Bayesian regression model utilizes default priors provided by the rstanarm p
 
 The weakly informative priors are designed to enhance the model's robustness, ensuring credible parameter estimates and reliable uncertainty quantification. The use of Bayesian priors provides an added layer of rigor, particularly when estimating complex relationships between predictors and body weight. The rstanarm package facilitates the implementation of these priors, making Bayesian inference accessible and effective for this analysis.
 
-## Justification for the Priors and Model Choice
+## Model Justification
 
 The choice of weakly informative priors reflects the exploratory nature of this study, where the goal is to identify significant predictors of body weight without imposing strong assumptions on the parameter estimates. Normal priors centered around zero with a moderate variance ensure that the model is flexible enough to incorporate data-driven insights while avoiding overfitting. This is particularly important given the diversity of predictors, which include anthropometric variables (e.g., waist and thigh circumference) and categorical demographic factors (e.g., military component). The priors help balance the varying scales of these predictors, ensuring interpretability and stability in the posterior estimates.
 
-A frequentist linear regression model was also considered for its simplicity and interpretability; however, it does not provide posterior distributions or credible intervals, which are essential for quantifying uncertainty in this study. By contrast, the Bayesian regression framework provides probabilistic estimates, enabling uncertainty quantification and credible intervals for the coefficients. This approach aligns well with the study's objectives, where understanding the relative influence of predictors on body weight requires a robust and interpretable model. The rstanarm package was chosen for its efficient handling of Bayesian inference and built-in diagnostics, ensuring rigorous validation. The Gaussian likelihood function complements the continuous nature of the outcome variable (body weight), and the model structure strikes a balance between simplicity and capturing key relationships in the data.
+A Frequentist linear regression model was also initially considered for its simplicity and interpretability; however, it does not provide posterior distributions or credible intervals, which are essential for quantifying uncertainty in this study. By contrast, the Bayesian regression framework provides probabilistic estimates, enabling uncertainty quantification and credible intervals for the coefficients. This approach aligns well with the study's objectives, where understanding the relative influence of predictors on body weight requires a robust and interpretable model. The `rstanarm` package was chosen for its efficient handling of Bayesian inference and built-in diagnostics, ensuring rigorous validation. The Gaussian likelihood function complements the continuous nature of the outcome variable (body weight), and the model structure strikes a balance between simplicity and capturing key relationships in the data.
+
+## Model Selection
+
+The model selection process involved building and comparing two Bayesian regression models using the analysis data: a full model with all predictors and a reduced model with only age and component as predictors. The data was split into training (80%) and testing (20%) subsets for model evaluation. Both models were fit using the stan_glm function, and predictions were made on the test set. The models were evaluated using Root Mean Square Error (RMSE) as a metric of predictive performance. The results showed that the full model had a slightly lower RMSE (133.16) compared to the reduced model (134.49), indicating that the additional predictors in the full model improved its predictive accuracy, albeit marginally.
 
 # Results {#sec-result}
-
-## Model Justification
 
 The Bayesian regression model was developed to investigate the relationship between body weight and key anthropometric and demographic predictors among female U.S. Army personnel. The predictors included height, waist circumference, thigh circumference, age, and military component. The analysis identified significant positive associations between body weight and the anthropometric predictors---height, waist circumference, and thigh circumference---highlighting their strong influence on body weight. Age and military component demonstrated smaller but meaningful effects, reflecting their nuanced contributions to variations in body weight. A summary of these findings is presented in [@tbl-bayesian-model-summary].
 
