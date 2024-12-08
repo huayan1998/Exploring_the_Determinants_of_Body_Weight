@@ -12,7 +12,7 @@ The analysis employs Bayesian regression modeling to explore these relationships
 The repo is structured as:
 
 -   `data/01-raw_data` contains the raw data as obtained from https://data.world/datamil/ansur-ii-female.
--   `data/02-analysis_data` contains the cleaned dataset that was constructed in `scripts/03-clean_data`.
+-   `data/02-analysis_data` contains the cleaned dataset that was constructed in `scirpts/02-clean_data`.
 -   `model` contains fitted models. 
 -   `other` contains relevant resources, including supplementary literature, descriptions of dataset features, and notes on interactions with large language models (LLMs)
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
