@@ -11,7 +11,7 @@ The analysis employs Bayesian regression modeling to explore these relationships
 
 The repo is structured as:
 
--   `data/01-raw_data` contains the raw data as obtained from [https://www.openlab.psu.edu/](https://data.world/datamil/ansur-ii-female).
+-   `data/01-raw_data` contains the raw data as obtained from https://data.world/datamil/ansur-ii-female.
 -   `data/02-analysis_data` contains the cleaned dataset that was constructed in `scripts/03-clean_data`.
 -   `model` contains fitted models. 
 -   `other` contains relevant resources, including supplementary literature, descriptions of dataset features, and notes on interactions with large language models (LLMs)
@@ -21,5 +21,5 @@ The repo is structured as:
 
 ## Statement on LLM usage
 
-ChatGPT-4 was utilized to assist with R code development, statistical concept clarification, and drafting documentation, including explanations for methods, results, and reproducibility workflows. Full interaction history is documented in other/llms/llm_usage.txt.
+ChatGPT-4o was utilized to assist with R code development, statistical concept clarification, and drafting documentation, including explanations for methods, results, and reproducibility workflows. Full interaction history is documented in other/llms/llm_usage.txt.
 
