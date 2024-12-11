@@ -22,7 +22,7 @@ The primary aim of this study is to model the relationship between body weight a
 
 Preliminary findings underscore the strong predictive power of anthropometric variables in determining body weight, with demographic factors serving as additional contributors. These results support the development of personalized fitness interventions, improved health outcomes, and the optimization of military gear to enhance operational readiness [@opendesignlab2018; @paquette2009].
 
-This paper is structured as follows: [@sec-data] describes the dataset and provides a descriptive analysis of the key variables. [@sec-model] explains the methodology, including the Bayesian regression model employed. [@sec-result] presents the findings, highlighting significant predictors and model performance. [@sec-discussion] discusses the implications, limitations, and future research directions. The appendix is divided into three sections: [Appendix -@sec-data-cleaning] discusses the data cleaning process, [Appendix -@sec-model-details] provides additional details of the modeling process, and [Appendix -@sec-ideal-survey] outlines an ideal survey methodology for improved data collection.
+This paper is structured as follows: [@sec-data] describes the dataset and provides a descriptive analysis of the key variables. [@sec-model] explains the methodology, including the Bayesian regression model employed. [@sec-result] presents the findings, highlighting significant predictors and model performance. [@sec-discussion] discusses the implications, limitations, and future research directions. Appendix is divided into three sections: [Appendix -@sec-data-cleaning] discusses the data cleaning process, [Appendix -@sec-model-details] provides additional details of the modeling process, and [Appendix -@sec-ideal-survey] outlines an ideal survey methodology for improved data collection.
 
 # Data {#sec-data}
 
@@ -90,7 +90,7 @@ ggplot(data = analysis_data, aes(x = weightlbs)) +
 
 ### Height
 
-Height, recorded as heightin in inches, is a key predictor of body weight. Taller individuals generally possess larger skeletal structures and greater body mass, making height a crucial variable for understanding variations in weight among the sample population.
+Height, recorded as heightin in inches, is a key predictor of body weight. Taller individuals generally possess larger skeletal structures and greater body mass, making height a significant variable for understanding variations in weight among the sample population.
 
 [@fig-height-distribution] illustrates the distribution of height within the dataset. The majority of individuals have heights ranging from 58 inches to 71 inches, with a central tendency around 63 inches. The distribution is approximately normal, despite a few outliers exceeding 73 inches. These outliers align with the natural variation in height observed among adult females.
 
@@ -160,7 +160,7 @@ ggplot(data_long, aes(x = measurement, y = value, fill = measurement)) +
 
 ### Age
 
-Age is a crucial demographic variable in this study, as it encapsulates biological and lifestyle factors that influence body weight. Variations in metabolism, muscle mass, and fat distribution associated with aging play a significant role in shaping body composition. In this dataset, age is measured in years and was self-reported by participants, with additional verification through administrative records to ensure accuracy.
+Age is an important demographic variable in this study, as it encapsulates biological and lifestyle factors that influence body weight. Variations in metabolism, muscle mass, and fat distribution associated with aging play a significant role in shaping body composition. In this dataset, age is measured in years and was self-reported by participants, with additional verification through administrative records to ensure accuracy.
 
 [@tbl-age-distribution] presents the distribution of age within the sample population. The majority of individuals are between 22 and 34 years old, with a pronounced peak observed in the late 20s. This age range reflects the demographic composition of the sample and provides a foundation for analyzing age-related influences on body weight.
 
@@ -469,7 +469,7 @@ Anthropometric measurements, including weight, height, waist circumference, and 
 
 To ensure data accuracy and reliability, several quality control measures will be implemented. Responses will be cross-verified with military records to validate demographic information. Pilot testing will be conducted with a small, diverse sample to refine survey questions and address logistical challenges. Response quality will be assessed by reviewing response times and identifying duplicates using IP tracking for online submissions. Measurement validation protocols, including regular calibration of equipment and standardization of procedures, will minimize variability. Ethical compliance will be ensured through Institutional Review Board (IRB) approval, and data privacy will be safeguarded through anonymization and encryption.
 
-This comprehensive methodology ensures robust, accurate, and representative data collection while addressing practical, ethical, and logistical considerations. By employing stratified random sampling, rigorous data validation, and inclusive recruitment strategies, the study is well-positioned to deliver valuable insights into the determinants of body weight among female U.S. Army personnel.
+This comprehensive methodology facilitates precise, reliable, and representative data collection while addressing practical, ethical, and logistical considerations. By employing stratified random sampling, rigorous data validation, and inclusive recruitment strategies, the study is well-positioned to yield meaningful insights into the determinants of body weight among female U.S. Army personnel.
 
 ## Ideal Survey Questionnaire
 
