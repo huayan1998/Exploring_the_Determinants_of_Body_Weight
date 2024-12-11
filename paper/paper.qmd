@@ -26,7 +26,7 @@ This paper is structured as follows: [@sec-data] describes the dataset and provi
 
 # Data {#sec-data}
 
-The ANSUR II dataset provides comprehensive anthropometric and demographic data for 1,986 female U.S [@ANSURII_2012]. Army personnel, collected using standardized protocols to ensure accuracy. Unlike civilian datasets, it uniquely addresses the physical demands and characteristics of military personnel, offering valuable information on factors like fitness, injury risk, and gear design [@hotzman2011]. Its specificity makes it a vital resource for understanding and improving the health, safety, and operational readiness of female soldiers [@paquette2009].
+The ANSUR II dataset provides comprehensive anthropometric and demographic data for 1,986 female U.S [@ansurII-2012]. Army personnel, collected using standardized protocols to ensure accuracy. Unlike civilian datasets, it uniquely addresses the physical demands and characteristics of military personnel, offering valuable information on factors like fitness, injury risk, and gear design [@hotzman2011]. Its specificity makes it a vital resource for understanding and improving the health, safety, and operational readiness of female soldiers [@paquette2009].
 
 ```{r}
 #| echo: false
