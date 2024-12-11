@@ -6,8 +6,6 @@ This repository utilizes data from the 2012 U.S. Army Anthropometric Survey (ANS
 
 The analysis employs Bayesian regression modeling to explore these relationships in depth, emphasizing the predictive power of anthropometric variables. The findings provide valuable insights for tailoring military health programs, optimizing fitness assessments, and improving the design of personalized equipment for female soldiers. This repository includes all necessary data, R scripts, and documentation to enable reproduction of the study's results and further exploration of the implications for operational readiness and health monitoring in military contexts.
 
-Aspects of the file structure and coding were adapted from https://github.com/RohanAlexander/starter_folder/tree/main.
-
 
 ## File Structure
 
