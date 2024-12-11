@@ -22,7 +22,7 @@ The primary aim of this study is to model the relationship between body weight a
 
 Preliminary findings underscore the strong predictive power of anthropometric variables in determining body weight, with demographic factors serving as additional contributors. These results support the development of personalized fitness interventions, improved health outcomes, and the optimization of military gear to enhance operational readiness [@opendesignlab2018; @paquette2009].
 
-This paper is structured as follows: [@sec-data] describes the dataset and provides a descriptive analysis of the key variables. [@sec-model] explains the methodology, including the Bayesian regression model employed. [@sec-result] presents the findings, highlighting significant predictors and model performance. [@sec-discussion] discusses the implications, limitations, and future research directions. Lastly, [@sec-model-details] offers detailed posterior predictive checks, diagnostic plots, and their interpretations.
+This paper is structured as follows: [@sec-data] describes the dataset and provides a descriptive analysis of the key variables. [@sec-model] explains the methodology, including the Bayesian regression model employed. [@sec-result] presents the findings, highlighting significant predictors and model performance. [@sec-discussion] discusses the implications, limitations, and future research directions. The appendix is divided into three sections: [Appendix -@sec-data-cleaning] discusses the data cleaning process, [Appendix -@sec-model-details] provides additional details of the modeling process, and [Appendix -@sec-ideal-survey] outlines an ideal survey methodology for improved data collection.
 
 # Data {#sec-data}
 
@@ -387,9 +387,9 @@ Expanding the dataset's scope to include longitudinal measurements would also en
 
 \appendix
 
-# Appendix {.unnumbered}
+# Appendix {-}
 
-# Data Cleaning
+# Data Cleaning {#sec-data-cleaning}
 
 The raw ANSUR II Female Dataset was systematically cleaned and prepared for analysis to ensure consistency, accuracy, and relevance of the variables. First, the raw dataset was loaded using the read_csv function and processed with the janitor::clean_names() function to standardize column names, making them easier to interpret and work with. Key variables relevant to the study---such as weight (weightlbs), height (heightin), waist circumference, thigh circumference, age, and military component---were selected using the select() function to focus the analysis on predictors of interest.
 
@@ -447,7 +447,7 @@ plot(bayesian_model, "trace")
 plot(bayesian_model, "rhat")
 ```
 
-# Ideal Survey Methodology
+# Ideal Survey Methodology {#sec-ideal-survey}
 
 ## Budget Allocation
 
