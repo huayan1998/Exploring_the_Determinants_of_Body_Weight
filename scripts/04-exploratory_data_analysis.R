@@ -4,11 +4,10 @@
 # Email: huayan.yu@mail.utoronto.ca
 # Date: December 2, 2024
 # License: MIT
-# Pre-requisites: R packages are loaded
+# Pre-requisites: R packages `tidyverse` and `arrow` are loaded
 
 #### Workspace setup ####
 library(tidyverse)
-library(testthat)
 library(arrow)
 
 analysis_data <- read_parquet("data/02-analysis_data/analysis_data.parquet")

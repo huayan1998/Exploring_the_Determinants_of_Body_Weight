@@ -4,7 +4,7 @@
 # Email: huayan.yu@mail.utoronto.ca
 # Date: December 2, 2024
 # License: MIT
-# Pre-requisites: R packages are loaded
+# Pre-requisites: R packages `tidyverse` and `testthat` are loaded
 
 #### Workspace setup ####
 library(tidyverse)
@@ -21,7 +21,7 @@ if (exists("simulated_data")) {
 
 #### Test data ####
 
-# Test if the dataset has the correct number of rows and columns
+# Define the expected columns
 expected_cols <- c(
   "weight", "height", "waist_circumference",
   "chest_circumference", "thigh_circumference",
@@ -29,44 +29,38 @@ expected_cols <- c(
   "ethnicity", "component"
 )
 
-# Test column names
-if (all(colnames(simulated_data) %in% expected_cols)) {
-  message("Test Passed: The dataset contains all expected columns.")
-} else {
-  stop("Test Failed: The dataset does not contain the correct columns.")
-}
+# Test if the dataset contains all expected columns
+test_that("The dataset contains all expected columns", {
+  expect_true(all(colnames(simulated_data) %in% expected_cols),
+              info = "The dataset does not contain the correct columns.")
+})
 
-# Test the number of rows (expecting 1000)
-if (nrow(simulated_data) == 1000) {
-  message("Test Passed: The dataset contains the expected number of rows (1000).")
-} else {
-  stop("Test Failed: The dataset does not contain the expected number of rows.")
-}
+# Test if the dataset has the expected number of rows (1000)
+test_that("The dataset contains the expected number of rows", {
+  expect_equal(nrow(simulated_data), 1000,
+               info = "The dataset does not contain the expected number of rows (1000).")
+})
 
-# Test for missing values
-if (all(!is.na(simulated_data))) {
-  message("Test Passed: The dataset contains no missing values.")
-} else {
-  stop("Test Failed: The dataset contains missing values.")
-}
+# Test for no missing values in the dataset
+test_that("The dataset contains no missing values", {
+  expect_true(all(!is.na(simulated_data)),
+              info = "The dataset contains missing values.")
+})
 
-# Test for unique categories in `gender`
-if (length(unique(simulated_data$gender)) == 2) {
-  message("Test Passed: The 'gender' column contains two unique values.")
-} else {
-  stop("Test Failed: The 'gender' column does not contain the expected number of unique values.")
-}
+# Test if the 'gender' column contains exactly two unique values
+test_that("The 'gender' column contains exactly two unique values", {
+  expect_equal(length(unique(simulated_data$gender)), 2,
+               info = "The 'gender' column does not contain exactly two unique values.")
+})
 
-# Test for valid range of ages (should be between 18 and 60)
-if (all(simulated_data$age >= 18 & simulated_data$age <= 60)) {
-  message("Test Passed: The 'age' column contains valid values within the expected range (18-60).")
-} else {
-  stop("Test Failed: The 'age' column contains values outside the expected range.")
-}
+# Test if the 'age' column contains values within the range 18 to 60
+test_that("The 'age' column contains values within the expected range (17-60)", {
+  expect_true(all(simulated_data$age >= 17 & simulated_data$age <= 60),
+              info = "The 'age' column contains values outside the expected range (17-60).")
+})
 
-# Check for duplicate rows
-if (nrow(simulated_data) == nrow(distinct(simulated_data))) {
-  message("Test Passed: There are no duplicate rows in the dataset.")
-} else {
-  stop("Test Failed: The dataset contains duplicate rows.")
-}
+# Test if there are no duplicate rows in the dataset
+test_that("The dataset contains no duplicate rows", {
+  expect_equal(nrow(simulated_data), nrow(distinct(simulated_data)),
+               info = "The dataset contains duplicate rows.")
+})

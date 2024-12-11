@@ -4,11 +4,11 @@
 # Email: huayan.yu@mail.utoronto.ca
 # Date: December 2, 2024
 # License: MIT
-# Pre-requisites: R packages are loaded
+# Pre-requisites: R packages `dplyr`, `rstanarm`, and `arrow` loaded
 
 #### Workspace setup ####
-library(rstanarm) # Load the rstanarm package for Bayesian modeling
-library(arrow) # Load the arrow package to read Parquet files
+library(rstanarm) 
+library(arrow) 
 library(dplyr)
 
 #### Read data ####

@@ -4,7 +4,7 @@
 # Email: huayan.yu@mail.utoronto.ca
 # Date: December 2, 2024
 # License: MIT
-# Pre-requisites: Raw data must be downloaded.
+# Pre-requisites: Raw data must be downloaded and R packages `tidyverse`, `janitor`, `tidyr` are loaded.
 
 #### Workspace setup ####
 library(tidyverse)
